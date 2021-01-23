@@ -1,0 +1,7 @@
+services:
+  cart:
+    build: .
+    devices:
+      - "${CAMERA_PATH}:${CAMERA_PATH}"
+    # command: ls ${CAMERA_PATH}
+    command: python -m cv2.__version___
