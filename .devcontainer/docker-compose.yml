@@ -1,9 +1,10 @@
 version: '3'
 services:
   camera:
-    container_name: camera
+    # container_name: camera
     build: .
     devices:
       - "${CAMERA_PATH}:${CAMERA_PATH}"
     # command: ls ${CAMERA_PATH}
     # command: python -m cv2.__version___
+    command: v4l2-ctl --list-devices
