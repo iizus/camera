@@ -51,7 +51,7 @@ class Capture:
 
     
     def __define_properties(self):
-        self.__define_property_of_fourcc()
+        self.__define_property_of_fourcc('codec')
         self.__define_property('fps', cv2.CAP_PROP_FPS)
         self.__define_property('width', cv2.CAP_PROP_FRAME_WIDTH)
         self.__define_property('height', cv2.CAP_PROP_FRAME_HEIGHT)
@@ -63,9 +63,7 @@ class Capture:
         self.__set_property_of(name, getter, setter)
 
 
-    def __define_property_of_fourcc(self):
-        name = 'fourcc'
-        # prop = cv2.CAP_PROP_FOURCC
+    def __define_property_of_fourcc(self, name):
         def getter(_): return self.__get_setting_of_fourcc()
         def setter(_, string): self.__set_setting_of_fourcc(string)
         self.__set_property_of(name, getter, setter)
