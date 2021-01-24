@@ -9,6 +9,13 @@ def save(frame, file_path):
     return cv2.imwrite(file_path, frame)
 
 
+def decode_fourcc(value):
+    v = int(value)
+    charactors = [chr((v >> 8 * i) & 0xFF) for i in range(4)]
+    fourcc = ''.join(charactors)
+    return fourcc
+
+
 class Capture:
     def __init__(self, video_source):
         self.__init_capture(video_source)
@@ -20,14 +27,14 @@ class Capture:
         self.capture.release()
 
 
-    def get_frame(self):
-        _, frame = self.capture.read()
-        return frame
-
-    
     def take_and_save_to(self, file_path):
         frame = self.get_frame()
         return save(frame, file_path)
+
+
+    def get_frame(self):
+        _, frame = self.capture.read()
+        return frame
 
 
     def __init_capture(self, video_source):
@@ -37,27 +44,41 @@ class Capture:
 
     def __read_frames(self):
         loop(callback=self.get_frame, times=2)
-        
 
-    def __decode_fourcc(self, value):
-        v = int(value)
-        charactors = [chr((v >> 8 * i) & 0xFF) for i in range(4)]
-        fourcc = ''.join(charactors)
-        return fourcc
-
-                
+    
     def __define_properties(self):
-        self.__define_property('fourcc', cv2.CAP_PROP_FOURCC)
+        # self.__define_property('fourcc', cv2.CAP_PROP_FOURCC)
+        self.__define_property_of_fourcc()
         self.__define_property('fps', cv2.CAP_PROP_FPS)
         self.__define_property('width', cv2.CAP_PROP_FRAME_WIDTH)
         self.__define_property('height', cv2.CAP_PROP_FRAME_HEIGHT)
 
 
     def __define_property(self, name, prop):
+        def getter(_): return self.__get_setting_of(prop)
+        def setter(_, value): self.__set_setting_of(prop, value)
+        set_prop = property(getter, setter)
+        setattr(self.__class__, name, set_prop)
+
+
+    def __get_setting_of(self, prop):
+        return self.capture.get(prop)
+
+    
+    def __set_setting_of(self, prop, value):
+        self.capture.set(prop, value)
+        self.__read_frames()
+
+
+    def __define_property_of_fourcc(self):
+        name = 'fourcc'
+        prop = cv2.CAP_PROP_FOURCC
         def getter(_):
-            return self.capture.get(prop)
-        def setter(_, value):
-            self.capture.set(prop, value)
-            self.__read_frames()
+            encoded_fourcc = self.__get_setting_of(prop)
+            decoded_fourcc = decode_fourcc(encoded_fourcc)
+            return decoded_fourcc
+        def setter(_, string):
+            value = cv2.VideoWriter_fourcc(string[0], string[1], string[2], string[3])
+            self.__set_setting_of(prop, value)
         set_prop = property(getter, setter)
         setattr(self.__class__, name, set_prop)
