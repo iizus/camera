@@ -5,6 +5,9 @@ services:
     build: .
     tty: true
     devices:
-      - "${CAMERA_PATH}:${CAMERA_PATH}"
+      - $CAMERA_PATH:$CAMERA_PATH
+    volumes:
+      - ../src:$WORK_DIR
+    working_dir: $WORK_DIR
     # command: ls ${CAMERA_PATH}
     # command: v4l2-ctl --list-devices
