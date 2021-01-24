@@ -37,13 +37,14 @@ class Capture:
         self.__capture.release()
 
 
-    def display_setting(self):
-        # value = self.__get_setting_of(prop)
-        # print(f"{key}: {value}")
-
+    def display_settings(self):
+        print('-----------------------')
+        codec = self.__get_setting_of_fourcc()
+        print(f"codec: {codec}")
         for key, prop in self.properties.items():
             value = self.__get_setting_of(prop)
             print(f"{key}: {value}")
+        print('-----------------------')
 
 
     def take_and_save_to(self, file_path):
@@ -68,10 +69,6 @@ class Capture:
     def __define_properties(self):
         self.__define_property_of_fourcc('codec')
         for name, prop in self.properties.items(): self.__define_property(name, prop)
-
-        # self.__define_property('fps', cv2.CAP_PROP_FPS)
-        # self.__define_property('width', cv2.CAP_PROP_FRAME_WIDTH)
-        # self.__define_property('height', cv2.CAP_PROP_FRAME_HEIGHT)
 
 
     def __define_property(self, name, prop):
