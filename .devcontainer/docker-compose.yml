@@ -7,6 +7,4 @@ services:
     devices:
       - "${CAMERA_PATH}:${CAMERA_PATH}"
     # command: ls ${CAMERA_PATH}
-    # command: python -m cv2.__version___
     # command: v4l2-ctl --list-devices
-    # command: bash
