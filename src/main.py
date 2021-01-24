@@ -10,9 +10,9 @@ print(camera.height)
 camera.take_and_save_to('test1.png')
 
 camera.fourcc = 'MJPG'
-camera.fps = 5
-camera.width = 800
-camera.height = 600
+camera.fps = 30
+camera.width = 1920
+camera.height = 1080
 
 print(camera.fourcc)
 print(camera.fps)

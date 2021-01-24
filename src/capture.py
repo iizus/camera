@@ -16,11 +16,15 @@ def decode_fourcc(value):
     return fourcc
 
 
+def get_fourcc_from(string):
+    fourcc = cv2.VideoWriter_fourcc(string[0], string[1], string[2], string[3])
+    return fourcc
+
+
 class Capture:
     def __init__(self, video_source):
         self.__init_capture(video_source)
         self.__define_properties()
-        # print(self.decode_fourcc(self.capture.get(cv2.CAP_PROP_FOURCC)))
 
 
     def __del__(self):
@@ -47,7 +51,6 @@ class Capture:
 
     
     def __define_properties(self):
-        # self.__define_property('fourcc', cv2.CAP_PROP_FOURCC)
         self.__define_property_of_fourcc()
         self.__define_property('fps', cv2.CAP_PROP_FPS)
         self.__define_property('width', cv2.CAP_PROP_FRAME_WIDTH)
@@ -57,8 +60,26 @@ class Capture:
     def __define_property(self, name, prop):
         def getter(_): return self.__get_setting_of(prop)
         def setter(_, value): self.__set_setting_of(prop, value)
-        set_prop = property(getter, setter)
-        setattr(self.__class__, name, set_prop)
+        self.__set_property_of(name, getter, setter)
+
+
+    def __define_property_of_fourcc(self):
+        name = 'fourcc'
+        # prop = cv2.CAP_PROP_FOURCC
+        def getter(_): return self.__get_setting_of_fourcc()
+        def setter(_, string): self.__set_setting_of_fourcc(string)
+        self.__set_property_of(name, getter, setter)
+
+
+    def __get_setting_of_fourcc(self):
+        encoded_fourcc = self.__get_setting_of(cv2.CAP_PROP_FOURCC)
+        decoded_fourcc = decode_fourcc(encoded_fourcc)
+        return decoded_fourcc
+
+
+    def __set_setting_of_fourcc(self, value):
+        fourcc = get_fourcc_from(value)
+        self.__set_setting_of(cv2.CAP_PROP_FOURCC, fourcc)
 
 
     def __get_setting_of(self, prop):
@@ -70,15 +91,6 @@ class Capture:
         self.__read_frames()
 
 
-    def __define_property_of_fourcc(self):
-        name = 'fourcc'
-        prop = cv2.CAP_PROP_FOURCC
-        def getter(_):
-            encoded_fourcc = self.__get_setting_of(prop)
-            decoded_fourcc = decode_fourcc(encoded_fourcc)
-            return decoded_fourcc
-        def setter(_, string):
-            value = cv2.VideoWriter_fourcc(string[0], string[1], string[2], string[3])
-            self.__set_setting_of(prop, value)
+    def __set_property_of(self, name, getter, setter):
         set_prop = property(getter, setter)
         setattr(self.__class__, name, set_prop)
