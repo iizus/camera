@@ -11,3 +11,4 @@ services:
     working_dir: $WORK_DIR
     # command: ls ${CAMERA_PATH}
     # command: v4l2-ctl --list-devices
+    command: python main.py
