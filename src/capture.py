@@ -22,13 +22,28 @@ def get_fourcc_from(string):
 
 
 class Capture:
+    properties = {
+        'fps': cv2.CAP_PROP_FPS,
+        'width': cv2.CAP_PROP_FRAME_WIDTH,
+        'height': cv2.CAP_PROP_FRAME_HEIGHT,
+    }
+
     def __init__(self, video_source):
         self.__init_capture(video_source)
         self.__define_properties()
 
 
     def __del__(self):
-        self.capture.release()
+        self.__capture.release()
+
+
+    def display_setting(self):
+        # value = self.__get_setting_of(prop)
+        # print(f"{key}: {value}")
+
+        for key, prop in self.properties.items():
+            value = self.__get_setting_of(prop)
+            print(f"{key}: {value}")
 
 
     def take_and_save_to(self, file_path):
@@ -37,12 +52,12 @@ class Capture:
 
 
     def get_frame(self):
-        _, frame = self.capture.read()
+        _, frame = self.__capture.read()
         return frame
 
 
     def __init_capture(self, video_source):
-        self.capture = cv2.VideoCapture(video_source)
+        self.__capture = cv2.VideoCapture(video_source)
         self.__read_frames()
 
 
@@ -52,9 +67,11 @@ class Capture:
     
     def __define_properties(self):
         self.__define_property_of_fourcc('codec')
-        self.__define_property('fps', cv2.CAP_PROP_FPS)
-        self.__define_property('width', cv2.CAP_PROP_FRAME_WIDTH)
-        self.__define_property('height', cv2.CAP_PROP_FRAME_HEIGHT)
+        for name, prop in self.properties.items(): self.__define_property(name, prop)
+
+        # self.__define_property('fps', cv2.CAP_PROP_FPS)
+        # self.__define_property('width', cv2.CAP_PROP_FRAME_WIDTH)
+        # self.__define_property('height', cv2.CAP_PROP_FRAME_HEIGHT)
 
 
     def __define_property(self, name, prop):
@@ -81,11 +98,11 @@ class Capture:
 
 
     def __get_setting_of(self, prop):
-        return self.capture.get(prop)
+        return self.__capture.get(prop)
 
     
     def __set_setting_of(self, prop, value):
-        self.capture.set(prop, value)
+        self.__capture.set(prop, value)
         self.__read_frames()
 
 
