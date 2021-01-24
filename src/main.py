@@ -16,3 +16,5 @@ camera.display_settings()
 
 camera.codec = 'YUYV'
 camera.display_settings()
+
+del camera
