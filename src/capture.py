@@ -1,5 +1,10 @@
 import cv2
 
+
+def save(self, frame, file_path):
+    return cv2.imwrite(frame, file_path)
+
+
 class Capture:
     def __init__(self, video_source):
         self.capture = cv2.VideoCapture(video_source)
@@ -11,6 +16,16 @@ class Capture:
         self.capture.release()
 
 
+    def get_frame(self):
+        _, frame = self.capture.read()
+        return frame
+
+    
+    def take_and_save_to(self, file_path):
+        frame = self.get_frame()
+        return save(frame, file_path)
+
+        
     def __decode_fourcc(self, value):
         v = int(value)
         charactors = [chr((v >> 8 * i) & 0xFF) for i in range(4)]
@@ -26,8 +41,6 @@ class Capture:
 
 
     def __define_property(self, name, prop):
-        class_name = self.__class__.__name__
-        field_name = f"_{class_name}__{name}"
         def getter(_): return self.capture.get(prop)
         def setter(_, value): self.capture.set(prop, value)
         set_prop = property(getter, setter)
