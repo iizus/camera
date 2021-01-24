@@ -41,9 +41,7 @@ class Capture:
         print('-----------------------')
         codec = self.__get_setting_of_fourcc()
         print(f"codec: {codec}")
-        for key, prop in self.properties.items():
-            value = self.__get_setting_of(prop)
-            print(f"{key}: {value}")
+        self.__display_settings()
         print('-----------------------')
 
 
@@ -55,6 +53,15 @@ class Capture:
     def get_frame(self):
         _, frame = self.__capture.read()
         return frame
+
+
+    def __display_settings(self):
+        for key, prop in self.properties.items(): self.__display_setting_of(key, prop)
+    
+
+    def __display_setting_of(self, key, prop):
+        value = self.__get_setting_of(prop)
+        print(f"{key}: {value}")
 
 
     def __init_capture(self, video_source):
