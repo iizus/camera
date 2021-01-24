@@ -7,6 +7,7 @@ class Capture:
         
         self.define_property('fps', cv2.CAP_PROP_FPS)
         self.define_property('width', cv2.CAP_PROP_FRAME_WIDTH)
+        self.define_property('height', cv2.CAP_PROP_FRAME_HEIGHT)
 
     def __del__(self):
         self.capture.release()
@@ -24,7 +25,3 @@ class Capture:
         def setter(_, value): self.capture.set(prop, value)
         set_prop = property(getter, setter)
         setattr(self.__class__, name, set_prop)
-
-    # def get_capture_setting(self):
-    #     self.height = capture.get(cv2.CAP_PROP_FRAME_HEIGHT)
-    #     self.fps = capture.get(cv2.CAP_PROP_FPS)
