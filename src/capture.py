@@ -40,6 +40,13 @@ class Capture:
         self.__capture.release()
 
 
+    def set_frame(self, codec, width, height, fps):
+        self.codec = codec
+        self.width = width
+        self.height = height
+        self.fps = fps
+
+
     def set_frame_size(self, width, height):
         self.width = width
         self.height = height
