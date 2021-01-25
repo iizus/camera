@@ -22,8 +22,6 @@ def loop(callback, times):
 
 
 class Capture:
-    # TODO: set width and height together
-
     __properties = {
         'fps': cv2.CAP_PROP_FPS,
         'width': cv2.CAP_PROP_FRAME_WIDTH,
@@ -39,6 +37,11 @@ class Capture:
 
     def __del__(self):
         self.__capture.release()
+
+
+    def set_frame_size(self, width, height):
+        self.width = width
+        self.height = height
 
 
     def display_settings(self):

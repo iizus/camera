@@ -8,8 +8,7 @@ camera.display_settings()
 
 camera.codec = 'MJPG'
 camera.fps = 30
-camera.width = 1920
-camera.height = 1080
+camera.set_frame_size(width=1920, height=1080)
 
 camera.display_settings()
 # camera.take_and_save_to('test2.png')
