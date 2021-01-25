@@ -14,6 +14,7 @@ camera.display_settings()
 # camera.take_and_save_to('test2.png')
 
 camera.codec = 'YUYV'
+camera.rgb = 0
 camera.display_settings()
 
 del camera

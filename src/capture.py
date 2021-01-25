@@ -26,6 +26,7 @@ class Capture:
         'fps': cv2.CAP_PROP_FPS,
         'width': cv2.CAP_PROP_FRAME_WIDTH,
         'height': cv2.CAP_PROP_FRAME_HEIGHT,
+        'rgb': cv2.CAP_PROP_CONVERT_RGB,
     }
 
 
@@ -106,7 +107,6 @@ class Capture:
 
     def __get_setting_of(self, prop):
         setting = self.__capture.get(prop)
-        setting = int(setting)
         return setting
 
     
