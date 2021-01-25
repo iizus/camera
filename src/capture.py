@@ -1,4 +1,12 @@
 import cv2
+from datetime import datetime
+
+
+def get_formated_time():
+    time_format = '%Y-%m-%d-%X:%f'
+    current_time = datetime.now()
+    current_time = current_time.strftime(time_format)
+    return current_time
 
 
 def save(frame, file_path):
@@ -58,6 +66,13 @@ class Capture:
         print(f"codec: {codec}")
         self.__display_settings_without_codec()
         print('-----------------------')
+
+
+    def take_and_save_with_timestamp(self, dir='.', image_type='png'):
+        current_time = get_formated_time()        
+        file_path = f"{dir}/{current_time}.{image_type}"
+        result = self.take_and_save_to(file_path)
+        return result
 
 
     def take_and_save_to(self, file_path):
