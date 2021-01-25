@@ -4,6 +4,8 @@ services:
     # container_name: camera
     build: .
     tty: true
+    environment:
+      TZ: Asia/Tokyo
     devices:
       - $CAMERA_PATH:$CAMERA_PATH
     volumes:
@@ -11,4 +13,6 @@ services:
     working_dir: $WORK_DIR
     # command: ls ${CAMERA_PATH}
     # command: v4l2-ctl --list-devices
-    command: python main.py
+    command: bash -c "
+      python main.py
+      "
