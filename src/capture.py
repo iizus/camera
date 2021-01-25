@@ -5,10 +5,10 @@ def save(frame, file_path):
     return cv2.imwrite(file_path, frame)
 
 
-def decode_fourcc(value):
-    v = int(value)
-    charactors = [chr((v >> 8 * i) & 0xFF) for i in range(4)]
-    fourcc = ''.join(charactors)
+def decode_fourcc(fourcc):
+    fourcc = int(fourcc)
+    fourcc = fourcc.to_bytes(4, 'little')
+    fourcc = fourcc.decode('utf-8')
     return fourcc
 
 
