@@ -13,7 +13,7 @@ def decode_fourcc(value):
 
 
 def get_fourcc_from(string):
-    fourcc = cv2.VideoWriter_fourcc(string[0], string[1], string[2], string[3])
+    fourcc = cv2.VideoWriter_fourcc(*string)
     return fourcc
 
 
@@ -22,6 +22,8 @@ def loop(callback, times):
 
 
 class Capture:
+    # TODO: set width and height together
+
     __properties = {
         'fps': cv2.CAP_PROP_FPS,
         'width': cv2.CAP_PROP_FRAME_WIDTH,
@@ -100,7 +102,9 @@ class Capture:
 
 
     def __get_setting_of(self, prop):
-        return self.__capture.get(prop)
+        setting = self.__capture.get(prop)
+        setting = int(setting)
+        return setting
 
     
     def __set_setting_of(self, prop, value):
