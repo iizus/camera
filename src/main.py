@@ -1,6 +1,6 @@
 from capture import Capture
 
-video_source = 0
+video_source = -1
 camera = Capture(video_source)
 
 camera.take_and_save_with_timestamp()
