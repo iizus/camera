@@ -30,13 +30,13 @@ class Capture:
 
 
     def __init__(self, video_source):
-        self.capture = cv2.VideoCapture(video_source)
+        self.__capture = cv2.VideoCapture(video_source)
         self.__define_properties()
         self.__read_frames()
 
 
     def __del__(self):
-        self.capture.release()
+        self.__capture.release()
 
 
     def display_settings(self):
@@ -54,7 +54,7 @@ class Capture:
 
 
     def get_frame(self):
-        _, frame = self.capture.read()
+        _, frame = self.__capture.read()
         return frame
 
 
@@ -100,11 +100,11 @@ class Capture:
 
 
     def __get_setting_of(self, prop):
-        return self.capture.get(prop)
+        return self.__capture.get(prop)
 
     
     def __set_setting_of(self, prop, value):
-        self.capture.set(prop, value)
+        self.__capture.set(prop, value)
         self.__read_frames()
 
 
