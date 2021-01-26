@@ -3,7 +3,7 @@ from capture import Capture
 video_source = -1
 camera = Capture(video_source)
 
-# camera.take_and_save_with_timestamp()
+camera.take_and_save_with_timestamp()
 
 camera.display_settings()
 # camera.take_and_save_to('test1.png')

@@ -1,5 +1,5 @@
-from opencv import OpenCV
-import opencv
+# import opencv
+from opencv import OpenCV, save
 from datetime import datetime
 
 
@@ -54,5 +54,5 @@ class Capture(OpenCV):
 
     def take_and_save_to(self, file_path):
         frame = self.get_frame()
-        result = opencv.save(frame, file_path)
+        result = save(frame, file_path)
         return result
