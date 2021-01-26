@@ -29,6 +29,13 @@ def loop(callback, times):
     for _ in range(times): callback()
 
 
+def get_file_path_from(dir='.', image_type='png'):
+    current_time = get_formated_time()
+    file_name = f"{current_time}.{image_type}"
+    file_path = f"{dir}/{file_name}"
+    return file_path
+
+
 class Capture:
     __properties = {
         'fps': cv2.CAP_PROP_FPS,
@@ -69,8 +76,7 @@ class Capture:
 
 
     def take_and_save_with_timestamp(self, dir='.', image_type='png'):
-        current_time = get_formated_time()        
-        file_path = f"{dir}/{current_time}.{image_type}"
+        file_path = get_file_path_from(dir, image_type)
         result = self.take_and_save_to(file_path)
         return result
 
