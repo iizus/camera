@@ -45,13 +45,13 @@ class Capture(OpenCV):
         print('-----------------------')
 
 
-    def take_and_save_with_timestamp(self, dir='.', image_type='png'):
-        file_path = get_file_path_from(dir, image_type)
-        result = self.take_and_save_to(file_path)
-        return result
+    # def take_and_save_with_timestamp(self, dir='.', image_type='png'):
+    #     file_path = get_file_path_from(dir, image_type)
+    #     result = self.take_and_save_to(file_path)
+    #     return result
 
 
-    def take_and_save_to(self, file_path=get_file_path_from(), parames=None):
+    def take_and_save(self, file_path=get_file_path_from(), parames=None):
         frame = self.get_frame()
         result = save(frame, file_path, parames)
         return result
