@@ -1,19 +1,4 @@
-from datetime import datetime
-from opencv import OpenCV, save
-
-
-def get_formated_time():
-    time_format = '%Y-%m-%d-%X:%f'
-    current_time = datetime.now()
-    current_time = current_time.strftime(time_format)
-    return current_time
-
-
-def get_file_path_from(dir='.', image_type='png'):
-    current_time = get_formated_time()
-    file_name = f"{current_time}.{image_type}"
-    file_path = f"{dir}/{file_name}"
-    return file_path
+from opencv import OpenCV
 
 
 class Capture(OpenCV):
@@ -49,9 +34,3 @@ class Capture(OpenCV):
     #     file_path = get_file_path_from(dir, image_type)
     #     result = self.take_and_save_to(file_path)
     #     return result
-
-
-    def take_and_save(self, file_path=get_file_path_from(), parames=None):
-        frame = self.get_frame()
-        result = save(frame, file_path, parames)
-        return result
