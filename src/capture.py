@@ -1,6 +1,5 @@
-# import opencv
-from opencv import OpenCV, save
 from datetime import datetime
+from opencv import OpenCV, save
 
 
 def get_formated_time():
