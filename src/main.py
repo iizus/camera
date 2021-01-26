@@ -9,6 +9,7 @@ camera.set_frame(
     fps = 30,
 )
 camera.display_settings()
-camera.take_and_save_with_timestamp()
+# camera.take_and_save_with_timestamp()
+camera.take_and_save_to()
 
 del camera

@@ -1,8 +1,8 @@
 import cv2
 
 
-def save(frame, file_path):
-    result = cv2.imwrite(file_path, frame)
+def save(frame, file_path, params=None):
+    result = cv2.imwrite(file_path, frame, params)
     return result
 
 

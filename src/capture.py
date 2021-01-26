@@ -51,7 +51,7 @@ class Capture(OpenCV):
         return result
 
 
-    def take_and_save_to(self, file_path):
+    def take_and_save_to(self, file_path=get_file_path_from(), parames=None):
         frame = self.get_frame()
-        result = save(frame, file_path)
+        result = save(frame, file_path, parames)
         return result
