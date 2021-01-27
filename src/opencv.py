@@ -16,8 +16,42 @@ def get_file_path_from(dir='.', image_type='png'):
     return file_path
 
 
-def save(frame, file_path=get_file_path_from(), params=None):
+def save(
+    frame,
+    file_path = get_file_path_from(),
+    params = [cv2.IMWRITE_PNG_COMPRESSION, 0]
+):
     result = cv2.imwrite(file_path, frame, params)
+    return result
+
+
+def save_as_png(
+    frame,
+    file_path = get_file_path_from(image_type='png'),
+    compression = 0,
+):
+    params = [cv2.IMWRITE_PNG_COMPRESSION, compression]
+    result = save(frame, file_path, params)
+    return result
+
+
+def save_as_tiff(
+    frame,
+    file_path = get_file_path_from(image_type='tif'),
+    compression = 0,
+):
+    params = [cv2.IMWRITE_TIFF_COMPRESSION, compression]
+    result = save(frame, file_path, params)
+    return result
+
+
+def save_as_jpeg(
+    frame,
+    file_path = get_file_path_from(image_type='jpg'),
+    quality = 100,
+):
+    params = [cv2.IMWRITE_JPEG_QUALITY, quality]
+    result = save(frame, file_path, params)
     return result
 
 
@@ -61,9 +95,9 @@ class OpenCV:
         return frame
 
 
-    def take_and_save(self, file_path=get_file_path_from(), parames=None):
+    def take_and_save(self):
         frame = self.get_frame()
-        result = save(frame, file_path, parames)
+        result = save_as_png(frame)
         return result
 
 
