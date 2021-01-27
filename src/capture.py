@@ -28,9 +28,3 @@ class Capture(OpenCV):
         print(f"codec: {codec}")
         self.display_settings_without_codec()
         print('-----------------------')
-
-
-    # def take_and_save_with_timestamp(self, dir='.', image_type='png'):
-    #     file_path = get_file_path_from(dir, image_type)
-    #     result = self.take_and_save_to(file_path)
-    #     return result

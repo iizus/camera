@@ -9,7 +9,7 @@ def get_formated_time():
     return current_time
 
 
-def get_file_path_from(dir='.', image_type='png'):
+def get_file_path_from(dir='./images', image_type='png'):
     current_time = get_formated_time()
     file_name = f"{current_time}.{image_type}"
     file_path = f"{dir}/{file_name}"
@@ -71,19 +71,23 @@ def loop(callback, times):
     for _ in range(times): callback()
 
 
+properties = {
+    'fps': cv2.CAP_PROP_FPS,
+    'width': cv2.CAP_PROP_FRAME_WIDTH,
+    'height': cv2.CAP_PROP_FRAME_HEIGHT,
+    'rgb': cv2.CAP_PROP_CONVERT_RGB,
+}
+
+
 class OpenCV:
-    __properties = {
-        'fps': cv2.CAP_PROP_FPS,
-        'width': cv2.CAP_PROP_FRAME_WIDTH,
-        'height': cv2.CAP_PROP_FRAME_HEIGHT,
-        'rgb': cv2.CAP_PROP_CONVERT_RGB,
-    }
-
-
     def __init__(self, video_source):
         self.__capture = cv2.VideoCapture(video_source)
         self.__define_properties()
         self.__read_frames()
+        self.image_type = 'png'
+        self.compression = 0
+        self.quality = 100
+        self.image_dir = 'images'
 
 
     def __del__(self):
@@ -95,9 +99,15 @@ class OpenCV:
         return frame
 
 
+    def save(self, frame):
+        file_path = get_file_path_from(dir=self.image_dir, image_type=self.image_type)
+        result = save(frame, file_path)
+        return result
+
+
     def take_and_save(self):
         frame = self.get_frame()
-        result = save_as_png(frame)
+        result = self.save(frame)
         return result
 
 
@@ -106,7 +116,7 @@ class OpenCV:
 
 
     def display_settings_without_codec(self):
-        for key, prop in self.__properties.items(): self.__display_setting_of(key, prop)
+        for key, prop in properties.items(): self.__display_setting_of(key, prop)
     
 
     def __display_setting_of(self, key, prop):
@@ -116,7 +126,7 @@ class OpenCV:
     
     def __define_properties(self):
         self.__define_property_of_fourcc('codec')
-        for name, prop in self.__properties.items(): self.__define_property(name, prop)
+        for name, prop in properties.items(): self.__define_property(name, prop)
 
 
     def __define_property(self, name, prop):
