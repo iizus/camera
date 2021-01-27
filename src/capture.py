@@ -5,10 +5,18 @@ import opencv
 class Capture(opencv.OpenCV):
     def __init__(self, video_source):
         super().__init__(video_source)
-        self.image_type = 'jpeg'
-        self.compression = 0
-        self.quality = 100
-        self.image_dir = 'images'
+        self.set_frame(
+            codec = 'YUYV',
+            width = 1920,
+            height = 1080,
+            fps = 5,
+        )
+        self.set_image(
+            dir = 'images',
+            type = 'png',
+            compression = 0,
+            quality = 100
+        )
 
 
     def __del__(self):
@@ -25,6 +33,13 @@ class Capture(opencv.OpenCV):
     def set_frame_size(self, width, height):
         self.width = width
         self.height = height
+
+
+    def set_image(self, dir, type, compression=0, quality=100):
+        self.image_dir = dir
+        self.image_type = type
+        self.compression = compression
+        self.quality = quality
 
 
     def display_settings(self):
