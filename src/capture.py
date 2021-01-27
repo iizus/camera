@@ -5,13 +5,13 @@ import opencv
 class Capture(opencv.OpenCV):
     def __init__(self, video_source):
         super().__init__(video_source)
-        self.set_frame(
+        self.set_frame_config(
             codec = 'YUYV',
             width = 1920,
             height = 1080,
             fps = 5,
         )
-        self.set_image(
+        self.set_image_config(
             dir = 'images',
             type = 'png',
             compression = 0,
@@ -23,7 +23,7 @@ class Capture(opencv.OpenCV):
         super().__del__()
 
 
-    def set_frame(self, codec, width, height, fps):
+    def set_frame_config(self, codec, width, height, fps):
         self.codec = codec
         self.width = width
         self.height = height
@@ -35,19 +35,25 @@ class Capture(opencv.OpenCV):
         self.height = height
 
 
-    def set_image(self, dir, type, compression=0, quality=100):
+    def set_image_config(self, dir, type, compression=0, quality=100):
         self.image_dir = dir
         self.image_type = type
         self.compression = compression
         self.quality = quality
 
 
-    def display_settings(self):
+    def display_frame_config(self):
         print('-----------------------')
         codec = self.get_setting_of_fourcc()
         print(f"codec: {codec}")
         self.display_settings_without_codec()
         print('-----------------------')
+
+
+    def take_and_save(self):
+        frame = self.get_frame()
+        result = self.save(frame)
+        return result
 
 
     def save(self, frame):
@@ -63,9 +69,3 @@ class Capture(opencv.OpenCV):
             return opencv.save_as_jpeg(frame, file_path, self.quality)
         else:
             return None
-
-
-    def take_and_save(self):
-        frame = self.get_frame()
-        result = self.save(frame)
-        return result

@@ -8,7 +8,7 @@ camera = Capture(video_source)
 #     height = 1080,
 #     fps = 30,
 # )
-camera.display_settings()
+camera.display_frame_config()
 # camera.take_and_save_with_timestamp()
 camera.take_and_save()
 
