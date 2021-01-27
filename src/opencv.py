@@ -71,17 +71,15 @@ def loop(callback, times):
     for _ in range(times): callback()
 
 
-properties = {
-    'fps': cv2.CAP_PROP_FPS,
-    'width': cv2.CAP_PROP_FRAME_WIDTH,
-    'height': cv2.CAP_PROP_FRAME_HEIGHT,
-    'rgb': cv2.CAP_PROP_CONVERT_RGB,
-}
-
-
 class OpenCV:
     def __init__(self, video_source):
         self.__capture = cv2.VideoCapture(video_source)
+        self.__properties = {
+            'fps': cv2.CAP_PROP_FPS,
+            'width': cv2.CAP_PROP_FRAME_WIDTH,
+            'height': cv2.CAP_PROP_FRAME_HEIGHT,
+            'rgb': cv2.CAP_PROP_CONVERT_RGB,
+        }
         self.__define_properties()
         self.__read_frames()
 
@@ -100,17 +98,19 @@ class OpenCV:
 
 
     def display_settings_without_codec(self):
-        for key, prop in properties.items(): self.__display_setting_of(key, prop)
+        properties = self.__properties.items()
+        for key, prop in properties: self.__display_setting_of(key, prop)
     
 
-    def __display_setting_of(self, key, prop):
+    def __display_setting_of(self, name, prop):
         value = self.__get_setting_of(prop)
-        print(f"{key}: {value}")
+        print(f"{name}: {value}")
 
     
     def __define_properties(self):
         self.__define_property_of_fourcc('codec')
-        for name, prop in properties.items(): self.__define_property(name, prop)
+        properties = self.__properties.items()
+        for name, prop in properties: self.__define_property(name, prop)
 
 
     def __define_property(self, name, prop):
