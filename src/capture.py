@@ -1,4 +1,3 @@
-# from opencv import OpenCV
 import opencv
 
 
@@ -15,7 +14,7 @@ class Capture(opencv.OpenCV):
             dir = 'images',
             type = 'png',
             compression = 0,
-            quality = 100
+            quality = 100,
         )
 
 
@@ -40,6 +39,15 @@ class Capture(opencv.OpenCV):
         self.image_type = type
         self.compression = compression
         self.quality = quality
+
+
+    def display_image_config(self):
+        print('-----------------------')
+        print(f"dir: {self.image_dir}")
+        print(f"type: {self.image_type}")
+        print(f"compression: {self.compression}")
+        print(f"quality: {self.quality}")
+        print('-----------------------')
 
 
     def display_frame_config(self):

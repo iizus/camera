@@ -40,8 +40,8 @@ def save_as_tiff(
     file_path = get_file_path_from(image_type='tiff'),
     compression = 0,
 ):
-    params = [cv2.IMWRITE_TIFF_COMPRESSION, compression]
-    result = save(frame, file_path, params)
+    # params = [cv2.IMWRITE_TIFF_COMPRESSION, compression]
+    result = save(frame, file_path)
     return result
 
 
