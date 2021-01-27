@@ -17,7 +17,7 @@ class Capture(opencv.OpenCV):
             quality = 100,
         )
         self.auto_exposure = 1
-        self.exposure = 10
+        self.exposure = 3
 
 
     def __del__(self):
