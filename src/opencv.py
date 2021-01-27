@@ -37,7 +37,7 @@ def save_as_png(
 
 def save_as_tiff(
     frame,
-    file_path = get_file_path_from(image_type='tif'),
+    file_path = get_file_path_from(image_type='tiff'),
     compression = 0,
 ):
     params = [cv2.IMWRITE_TIFF_COMPRESSION, compression]
@@ -47,7 +47,7 @@ def save_as_tiff(
 
 def save_as_jpeg(
     frame,
-    file_path = get_file_path_from(image_type='jpg'),
+    file_path = get_file_path_from(image_type='jpeg'),
     quality = 100,
 ):
     params = [cv2.IMWRITE_JPEG_QUALITY, quality]
@@ -84,7 +84,7 @@ class OpenCV:
         self.__capture = cv2.VideoCapture(video_source)
         self.__define_properties()
         self.__read_frames()
-        self.image_type = 'png'
+        self.image_type = 'jpeg'
         self.compression = 0
         self.quality = 100
         self.image_dir = 'images'
@@ -100,9 +100,18 @@ class OpenCV:
 
 
     def save(self, frame):
-        file_path = get_file_path_from(dir=self.image_dir, image_type=self.image_type)
-        result = save(frame, file_path)
-        return result
+        file_path = get_file_path_from(
+            dir = self.image_dir,
+            image_type = self.image_type,
+        )
+        if self.image_type == 'png':
+            return save_as_png(frame, file_path, self.compression)
+        elif self.image_type == 'tiff':
+            return save_as_tiff(frame, file_path, self.compression)
+        elif self.image_type == 'jpeg':
+            return save_as_jpeg(frame, file_path, self.quality)
+        else:
+            return None
 
 
     def take_and_save(self):
