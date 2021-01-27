@@ -84,10 +84,6 @@ class OpenCV:
         self.__capture = cv2.VideoCapture(video_source)
         self.__define_properties()
         self.__read_frames()
-        self.image_type = 'jpeg'
-        self.compression = 0
-        self.quality = 100
-        self.image_dir = 'images'
 
 
     def __del__(self):
@@ -97,27 +93,6 @@ class OpenCV:
     def get_frame(self):
         _, frame = self.__capture.read()
         return frame
-
-
-    def save(self, frame):
-        file_path = get_file_path_from(
-            dir = self.image_dir,
-            image_type = self.image_type,
-        )
-        if self.image_type == 'png':
-            return save_as_png(frame, file_path, self.compression)
-        elif self.image_type == 'tiff':
-            return save_as_tiff(frame, file_path, self.compression)
-        elif self.image_type == 'jpeg':
-            return save_as_jpeg(frame, file_path, self.quality)
-        else:
-            return None
-
-
-    def take_and_save(self):
-        frame = self.get_frame()
-        result = self.save(frame)
-        return result
 
 
     def __read_frames(self):
