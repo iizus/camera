@@ -79,6 +79,8 @@ class OpenCV:
             'width': cv2.CAP_PROP_FRAME_WIDTH,
             'height': cv2.CAP_PROP_FRAME_HEIGHT,
             'rgb': cv2.CAP_PROP_CONVERT_RGB,
+            'auto_exposure': cv2.CAP_PROP_AUTO_EXPOSURE,
+            'exposure': cv2.CAP_PROP_EXPOSURE,
         }
         self.__define_properties()
         self.__read_frames()
@@ -120,7 +122,7 @@ class OpenCV:
 
 
     def __define_property_of_fourcc(self, name):
-        def getter(_): return self.__get_setting_of_fourcc()
+        def getter(_): return self.get_setting_of_fourcc()
         def setter(_, string): self.__set_setting_of_fourcc(string)
         self.__set_property_of(name, getter, setter)
 

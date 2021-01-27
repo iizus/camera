@@ -5,10 +5,10 @@ class Capture(opencv.OpenCV):
     def __init__(self, video_source):
         super().__init__(video_source)
         self.set_frame_config(
-            codec = 'YUYV',
+            codec = 'MJPG',
             width = 1920,
             height = 1080,
-            fps = 5,
+            fps = 30,
         )
         self.set_image_config(
             dir = 'images',
@@ -16,6 +16,8 @@ class Capture(opencv.OpenCV):
             compression = 0,
             quality = 100,
         )
+        self.auto_exposure = 1
+        self.exposure = 10
 
 
     def __del__(self):
