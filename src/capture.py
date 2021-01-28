@@ -13,10 +13,10 @@ class Capture(opencv.OpenCV):
         self.set_image_config(
             dir = 'images',
             type = 'png',
-            compression = 0,
+            compression = False,
             quality = 100,
         )
-        self.auto_exposure = 1
+        self.auto_exposure = 0
         self.exposure = 3
 
 
@@ -36,7 +36,7 @@ class Capture(opencv.OpenCV):
         self.height = height
 
 
-    def set_image_config(self, dir, type, compression=0, quality=100):
+    def set_image_config(self, dir, type, compression=False, quality=100):
         self.image_dir = dir
         self.image_type = type
         self.compression = compression

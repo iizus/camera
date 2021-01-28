@@ -28,8 +28,9 @@ def save(
 def save_as_png(
     frame,
     file_path = get_file_path_from(image_type='png'),
-    compression = 0,
+    compression = False,
 ):
+    compression = 9 if compression else 0
     params = [cv2.IMWRITE_PNG_COMPRESSION, compression]
     result = save(frame, file_path, params)
     return result
@@ -38,10 +39,11 @@ def save_as_png(
 def save_as_tiff(
     frame,
     file_path = get_file_path_from(image_type='tiff'),
-    compression = 0,
+    compression = False,
 ):
-    # params = [cv2.IMWRITE_TIFF_COMPRESSION, compression]
-    result = save(frame, file_path)
+    compression = 5 if compression else 1
+    params = [cv2.IMWRITE_TIFF_COMPRESSION, compression]
+    result = save(frame, file_path, params)
     return result
 
 

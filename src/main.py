@@ -11,15 +11,15 @@ camera.set_frame_config(
 )
 camera.set_image_config(
     dir = 'images',
-    type = 'jpeg',
-    compression = 0,
+    type = 'png',
+    compression = True,
     quality = 100,
 )
 
 camera.display_frame_config()
 # camera.display_image_config()
 
-# camera.take_and_save()
+camera.take_and_save()
 
 frames = list()
 interval_time_sec = 1
