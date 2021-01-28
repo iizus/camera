@@ -4,6 +4,18 @@ import opencv
 class Capture(opencv.OpenCV):
     def __init__(self, video_source):
         super().__init__(video_source)
+        # self.set_configs()
+
+
+    def __del__(self):
+        super().__del__()
+
+
+    def set_configs(self):
+        self.set_camera_config(
+            auto_exposure = 1,
+            exposure = 3,
+        )
         self.set_frame_config(
             codec = 'MJPG',
             width = 1920,
@@ -16,12 +28,11 @@ class Capture(opencv.OpenCV):
             compression = False,
             quality = 100,
         )
-        self.auto_exposure = 0
-        self.exposure = 3
 
 
-    def __del__(self):
-        super().__del__()
+    def set_camera_config(self, auto_exposure, exposure):
+        self.auto_exposure = auto_exposure
+        self.exposure = exposure
 
 
     def set_frame_config(self, codec, width, height, fps):

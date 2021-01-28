@@ -3,6 +3,10 @@ from capture import Capture
 video_source = -1
 camera = Capture(video_source)
 
+camera.set_camera_config(
+    auto_exposure = 0,
+    exposure = 3,
+)
 camera.set_frame_config(
     codec = 'MJPG',
     width = 1920,
@@ -19,7 +23,7 @@ camera.set_image_config(
 camera.display_frame_config()
 # camera.display_image_config()
 
-camera.take_and_save()
+# camera.take_and_save()
 
 frames = list()
 interval_time_sec = 1
