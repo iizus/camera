@@ -4,23 +4,23 @@ video_source = -1
 camera = Capture(video_source)
 
 camera.set_camera_config(
-    auto_exposure = 0,
+    auto_exposure = 1,
     exposure = 3,
 )
 camera.set_frame_config(
     codec = 'MJPG',
-    width = 1920,
-    height = 1080,
+    width = 800,
+    height = 600,
     fps = 30,
 )
 camera.set_image_config(
     dir = 'images',
-    type = 'png',
+    type = 'jpeg',
     compression = True,
     quality = 100,
 )
 
-camera.display_frame_config()
+# camera.display_frame_config()
 # camera.display_image_config()
 
 # camera.take_and_save()
@@ -39,7 +39,17 @@ def is_elapsed(started_time, interval_time_sec):
 while is_elapsed(started_time, interval_time_sec):
     frame = camera.get_frame()
     frames.append(frame)
+    camera.set_camera_config(
+        auto_exposure = 1,
+        exposure = 3,
+    )
+    # print(camera.exposure)
+    # print(camera.auto_exposure)
+    # print(camera.fps)
 else:
     print(len(frames))
+
+
+# camera.display_frame_config()
 
 del camera

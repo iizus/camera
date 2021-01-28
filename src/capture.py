@@ -11,23 +11,23 @@ class Capture(opencv.OpenCV):
         super().__del__()
 
 
-    def set_configs(self):
-        self.set_camera_config(
-            auto_exposure = 1,
-            exposure = 3,
-        )
-        self.set_frame_config(
-            codec = 'MJPG',
-            width = 1920,
-            height = 1080,
-            fps = 30,
-        )
-        self.set_image_config(
-            dir = 'images',
-            type = 'png',
-            compression = False,
-            quality = 100,
-        )
+    # def set_configs(self):
+    #     self.set_camera_config(
+    #         auto_exposure = 1,
+    #         exposure = 3,
+    #     )
+    #     self.set_frame_config(
+    #         codec = 'MJPG',
+    #         width = 1920,
+    #         height = 1080,
+    #         fps = 30,
+    #     )
+    #     self.set_image_config(
+    #         dir = 'images',
+    #         type = 'png',
+    #         compression = False,
+    #         quality = 100,
+    #     )
 
 
     def set_camera_config(self, auto_exposure, exposure):

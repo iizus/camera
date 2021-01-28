@@ -76,6 +76,7 @@ def loop(callback, times):
 class OpenCV:
     def __init__(self, video_source):
         self.__capture = cv2.VideoCapture(video_source)
+        # self.__read_frames()
         self.__properties = {
             'fps': cv2.CAP_PROP_FPS,
             'width': cv2.CAP_PROP_FRAME_WIDTH,
@@ -85,7 +86,8 @@ class OpenCV:
             'exposure': cv2.CAP_PROP_EXPOSURE,
         }
         self.__define_properties()
-        self.__read_frames()
+        # self.__capture.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0)
+        # self.__capture.set(cv2.CAP_PROP_EXPOSURE, 100)
 
 
     def __del__(self):
@@ -146,8 +148,10 @@ class OpenCV:
 
     
     def __set_setting_of(self, prop, value):
-        self.__capture.set(prop, value)
-        self.__read_frames()
+        result = self.__capture.set(prop, value)
+        # self.__read_frames()
+        # print(result)
+        return result
 
 
     def __set_property_of(self, name, getter, setter):
